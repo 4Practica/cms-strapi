@@ -27,7 +27,7 @@ export default factories.createCoreController(
         .query("api::newsletter.newsletter")
         .create({
           data: { email, publishedAt: new Date() },
-          select: ["email"],
+          select: ["id", "email"],
         });
 
       ctx.response.status = 201;
