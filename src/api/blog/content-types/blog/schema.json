@@ -83,6 +83,12 @@
       "relation": "manyToMany",
       "target": "api::tag.tag",
       "inversedBy": "blogs"
+    },
+    "meta_datum": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::meta-data.meta-data",
+      "mappedBy": "blog"
     }
   }
 }
