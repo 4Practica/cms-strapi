@@ -1,4 +1,16 @@
-export default () => ({
+export default ({ env }) => ({
+  email: {
+    config: {
+      provider: "sendgrid",
+      providerOptions: {
+        apiKey: env("SENDGRID_API_KEY"),
+      },
+      settings: {
+        defaultFrom: "marketing@devcorner.top",
+        defaultReplyTo: "marketing@devcorner.top",
+      },
+    },
+  },
   // ...
   webtools: {
     enabled: true,
