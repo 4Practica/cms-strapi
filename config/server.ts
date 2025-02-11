@@ -1,7 +1,7 @@
 
 const assignProductionUrl = ({ env }) => {
   const urlProduction = env('NODE_ENV') === "production" ? {
-    url: "https://api.bryanstgarcia.com",
+    url: "https://api.devcorner.top",
   } : {}
   return urlProduction
 }

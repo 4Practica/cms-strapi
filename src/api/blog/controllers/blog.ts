@@ -14,7 +14,7 @@ export default factories.createCoreController(
         where: { slug },
 
         // Line to populate the relationships
-        populate: { tags: true, author: true },
+        populate: { tags: true, author: true, meta_datum: true },
       });
       const sanitizedEntity = await this.sanitizeOutput(entity, ctx);
 
@@ -24,7 +24,7 @@ export default factories.createCoreController(
     async find(ctx) {
       const entity = await strapi.db.query("api::blog.blog").findMany({
         // Line to populate the relationships
-        populate: { tags: true, author: true },
+        populate: { tags: true, author: true},
       });
       const sanitizedEntity = await this.sanitizeOutput(entity, ctx);
 
