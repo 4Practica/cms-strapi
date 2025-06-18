@@ -19,10 +19,6 @@
     "shortDescription": {
       "type": "text"
     },
-    "imageUrl": {
-      "type": "string",
-      "required": false
-    },
     "blogs": {
       "type": "relation",
       "relation": "oneToMany",
@@ -46,11 +42,12 @@
       "required": false
     },
     "image": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
       "allowedTypes": [
         "images"
-      ],
-      "type": "media",
-      "multiple": false
+      ]
     }
   }
 }
