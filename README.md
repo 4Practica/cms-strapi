@@ -92,7 +92,7 @@ This guide outlines the required steps to build and publish a new version of a D
 Replace `<version>` with the version you are releasing:
 
 ```shell
-docker build -f docker-compose.prod.yml --build-arg TARGETPLATFORM=linux/amd64 -t bryanstgarcia/<repo-name>:<version> 
+docker build -f Dockerfile.prod . --build-arg TARGETPLATFORM=linux/amd64 -t bryanstgarcia/<repo-name>:<version> 
 ```
 
 ### 🏷️ Step 2: Tag the image as latest
