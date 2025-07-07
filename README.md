@@ -82,8 +82,8 @@ This guide outlines the required steps to build and publish a new version of a D
 > - The `latest` tag pointing to that version
 
 > Note 
-> - The <version> should be replace
-> - The <repo-name> should be replace with `cms-strapi`
+> - The `<version>` should be replace
+> - The `<repo-name>` should be replace with `cms-strapi`
 
 ---
 
@@ -93,7 +93,6 @@ Replace `<version>` with the version you are releasing:
 
 ```shell
 docker build -f docker-compose.prod.yml --build-arg TARGETPLATFORM=linux/amd64 -t bryanstgarcia/<repo-name>:<version> 
-
 ```
 
 ### 🏷️ Step 2: Tag the image as latest
