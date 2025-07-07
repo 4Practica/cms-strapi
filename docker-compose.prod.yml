@@ -1,6 +1,6 @@
 services:
   strapi:
-    platform: linux/amd6
+    platform: linux/amd64
     image: bryanstgarcia/cms-strapi:latest
     container_name: cms-strapi-production
     env_file: .env
