@@ -14,26 +14,16 @@ export default factories.createCoreController(
         where: { slug },
 
         // Line to populate the relationships
-        populate: { tags: true, author: true, meta_datum: true },
+        populate: { tags: true, author: { populate: { image: true }}, meta_datum: true },
       });
+
+      entity.author.imageUrl = entity.author.image?.url
+      delete entity.author.image
+
       const sanitizedEntity = await this.sanitizeOutput(entity, ctx);
 
       return this.transformResponse(sanitizedEntity);
     },
-
-    // async find(ctx) {
-    //   const entity = await strapi.db.query("api::blog.blog").findMany({
-    //     // Line to populate the relationships
-    //     populate: { tags: true, author: true },
-    //     offset: ctx.query.pagination.page * ctx.query.pagination.limit,
-    //   });
-
-    //   const sanitizedEntity = await this.sanitizeOutput(entity, ctx);
-
-    //   return this.transformResponse(sanitizedEntity, {
-    //     pagination: ctx.query.pagination,
-    //   });
-    // },
 
     async customSearch(ctx) {
       const { search } = ctx.params;
