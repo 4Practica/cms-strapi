@@ -117,7 +117,7 @@ docker push bryanstgarcia/<repo-name>:latest
 Both tags must be pushed for the release to be considered complete.
 
 ### ✅ Step 5: Verify the release on Docker Hub
-Go to: https://hub.docker.com/repository/docker/bryanstgarcia/reverse-proxy
+Go to: https://hub.docker.com/repository/docker/bryanstgarcia/cms-strapi
 
 Make sure both tags are listed:
 
