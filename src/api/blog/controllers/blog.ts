@@ -14,8 +14,12 @@ export default factories.createCoreController(
         where: { slug },
 
         // Line to populate the relationships
-        populate: { tags: true, author: true, meta_datum: true },
+        populate: { tags: true, author: { populate: { image: true }}, meta_datum: true },
       });
+
+      entity.author.imageUrl = entity.author.image?.url
+      delete entity.author.image
+
       const sanitizedEntity = await this.sanitizeOutput(entity, ctx);
 
       return this.transformResponse(sanitizedEntity);
