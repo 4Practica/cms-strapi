@@ -1,5 +1,6 @@
 services:
   strapi:
+    platform: linux/amd6
     image: bryanstgarcia/cms-strapi:latest
     container_name: cms-strapi-production
     env_file: .env
@@ -22,6 +23,7 @@ services:
     # - "1337:1337"
     networks:
       - reverse-proxy-network
+    restart: always
 
 networks:
   reverse-proxy-network:
