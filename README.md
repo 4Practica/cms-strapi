@@ -73,8 +73,56 @@ Build your admin panel. [Learn more](https://docs.strapi.io/dev-docs/cli#strapi-
 npm run build
 ```
 
-## ⚙️ Deployment
+### 🚀 Release a new version into production Docker hub
 
+This guide outlines the required steps to build and publish a new version of a Docker image to Docker Hub.
+
+> ⚠️ Every release must include:
+> - A version tag (e.g., `1.0.1`)
+> - The `latest` tag pointing to that version
+
+> Note 
+> - The <version> should be replace
+> - The <repo-name> should be replace with `cms-strapi`
+
+---
+
+### 🧱 Step 1: Build the image with a version tag
+
+Replace `<version>` with the version you are releasing:
+
+```shell
+docker build -f docker-compose.prod.yml --build-arg TARGETPLATFORM=linux/amd64 -t bryanstgarcia/<repo-name>:<version> 
+
+```
+
+### 🏷️ Step 2: Tag the image as latest
+
+This ensures that the latest tag always reflects the most recent version.
+```shell
+docker tag bryanstgarcia/<repo-name>:<version> bryanstgarcia/<repo-name>:latest
+```
+You can also use the image id to tag. Sometimes is easier.
+
+### 🔐 Step 3: Log in to Docker Hub (if not already logged in)
+```shell
+docker login
+```
+Enter your Docker Hub credentials when prompted.
+
+### ☁️ Step 4: Push both tags to Docker Hub
+```shell
+docker push bryanstgarcia/<repo-name>:<version>
+docker push bryanstgarcia/<repo-name>:latest
+```
+Both tags must be pushed for the release to be considered complete.
+
+### ✅ Step 5: Verify the release on Docker Hub
+Go to: https://hub.docker.com/repository/docker/bryanstgarcia/reverse-proxy
+
+Make sure both tags are listed:
+
+`<version>` and `latest`
 
 ## Strapi resources
 
