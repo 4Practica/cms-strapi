@@ -27,7 +27,6 @@ export default factories.createCoreController(
 
       return this.transformResponse(sanitizedEntity);
     },
-
     async customSearch(ctx) {
       const { search } = ctx.params;
       const arrayOfSearch = search.split("-");
@@ -46,8 +45,26 @@ export default factories.createCoreController(
             },
           ],
         },
-        populate: { tags: true, author: true },
+        populate: { tags: true, author: true, image: true },
       });
+      for(const blog of entity){
+        blog.imageUrl = blog.image?.url
+        delete blog.image
+      }
+
+      const sanitizedEntity = await this.sanitizeOutput(entity, ctx);
+
+      return this.transformResponse(sanitizedEntity);
+    },
+    async find(ctx) {
+      const entity = await strapi.db.query('api::blog.blog').findMany({
+        // Line to populate the relationships
+        populate:  { image: true, tags: true, author: { populate: { image: true }}, meta_datum: true },
+      });
+      for(const blog of entity){
+        blog.imageUrl = blog.image?.url
+        delete blog.image
+      }
 
       const sanitizedEntity = await this.sanitizeOutput(entity, ctx);
 
