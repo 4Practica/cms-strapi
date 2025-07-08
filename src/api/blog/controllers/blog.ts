@@ -65,7 +65,6 @@ export default factories.createCoreController(
         blog.imageUrl = blog.image?.url
         delete blog.image
       }
-
       const sanitizedEntity = await this.sanitizeOutput(entity, ctx);
 
       return this.transformResponse(sanitizedEntity);

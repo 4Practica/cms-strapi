@@ -8,7 +8,13 @@
     "start": "strapi start",
     "build": "strapi build",
     "strapi": "strapi",
-    "deploy": "strapi deploy"
+    "deploy": "strapi deploy",
+    "docker:error": "if [ -z \"${npm_config_tag}\" ]; then echo \"Error: El parámetro --tag es obligatorio. Ejemplo: npm run docker:<action> --tag=1.0.0\"; exit 1; fi",
+    "docker:login": "docker login",
+    "docker:build": "npm run docker:error && docker build -f Dockerfile.prod . --build-arg TARGETPLATFORM=linux/amd64 -t bryanstgarcia/cms-strapi:${npm_config_tag}",
+    "docker:latest": "npm run docker:error && docker tag bryanstgarcia/cms-strapi:${npm_config_tag} bryanstgarcia/cms-strapi:latest",
+    "docker:push": "npm run docker:error && docker push bryanstgarcia/cms-strapi:${npm_config_tag} && docker push bryanstgarcia/cms-strapi:latest",
+    "docker:deploy": "npm run docker:error && npm run docker:build && npm run docker:latest && npm run docker:push"
   },
   "dependencies": {
     "@pluginpal/webtools-addon-sitemap": "^1.0.0-beta.10",
