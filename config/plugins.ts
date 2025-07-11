@@ -1,16 +1,4 @@
 export default ({ env }) => ({
-  email: {
-    config: {
-      provider: "sendgrid",
-      providerOptions: {
-        apiKey: env("SENDGRID_API_KEY"),
-      },
-      settings: {
-        defaultFrom: "marketing@devcorner.top",
-        defaultReplyTo: "marketing@devcorner.top",
-      },
-    },
-  },
   // S3 upload images plugin
   upload: {
     config: {

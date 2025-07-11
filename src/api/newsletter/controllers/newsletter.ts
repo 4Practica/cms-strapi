@@ -3,7 +3,6 @@
  */
 
 import { factories } from "@strapi/strapi";
-import sgMail from "@sendgrid/mail";
 
 export default factories.createCoreController(
   "api::newsletter.newsletter",
@@ -31,13 +30,6 @@ export default factories.createCoreController(
           select: ["id", "email"],
         });
 
-      sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-      const msg = {
-        to: email,
-        from: "marketing@devcorner.top",
-        templateId: "d-18b4711d975a4813876dfc6ba510bdee",
-      };
-      sgMail.send(msg);
 
       ctx.response.status = 201;
       return this.transformResponse(newSubscriber);
