@@ -15,6 +15,7 @@ services:
       ADMIN_JWT_SECRET: ${ADMIN_JWT_SECRET}
       APP_KEYS: ${APP_KEYS}
       NODE_ENV: ${NODE_ENV}
+      NEWSLETTER_URL: ${NEWSLETTER_URL}
     # Only add expose when working with reverse proxy. Expose only the container PORT
     expose:
       - "1337"
@@ -23,10 +24,14 @@ services:
     # - "1337:1337"
     networks:
       - reverse-proxy-network
+      - newsletter-network
     restart: always
 
 networks:
   reverse-proxy-network:
     name: reverse-proxy-network
     driver: bridge
-
+  newsletter-network:
+    name: newsletter-network
+    driver: bridge
+    external: true

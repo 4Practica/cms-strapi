@@ -17,6 +17,7 @@ services:
       ADMIN_JWT_SECRET: ${ADMIN_JWT_SECRET}
       APP_KEYS: ${APP_KEYS}
       NODE_ENV: development
+      NEWSLETTER_URL: ${NEWSLETTER_URL}
     volumes:
       - ./config:/opt/app/config
       - ./src:/opt/app/src
@@ -28,6 +29,7 @@ services:
       - "1337:1337"
     networks:
       - strapi
+      - newsletter-network
     depends_on:
       - strapiDB
 
@@ -58,3 +60,7 @@ networks:
   strapi:
     name: Strapi
     driver: bridge
+  newsletter-network:
+    name: newsletter-network
+    driver: bridge
+    external: true
