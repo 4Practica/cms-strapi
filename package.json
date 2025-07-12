@@ -24,6 +24,7 @@
     "@strapi/plugin-users-permissions": "4.25.1",
     "@strapi/provider-upload-aws-s3": "^5.10.2",
     "@strapi/strapi": "4.25.1",
+    "axios": "^1.10.0",
     "mysql": "2.18.1",
     "pg": "^8.12.0",
     "react": "^18.0.0",
