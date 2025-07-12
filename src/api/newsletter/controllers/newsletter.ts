@@ -3,6 +3,7 @@
  */
 
 import { factories } from "@strapi/strapi";
+import { sendWelcomeEmail } from "../../utils/newsletterService.js";
 
 export default factories.createCoreController(
   "api::newsletter.newsletter",
@@ -30,6 +31,7 @@ export default factories.createCoreController(
           select: ["id", "email"],
         });
 
+      await sendWelcomeEmail(email);
 
       ctx.response.status = 201;
       return this.transformResponse(newSubscriber);
