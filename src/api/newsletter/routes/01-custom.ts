@@ -5,5 +5,10 @@ export default {
       path: "/newsletter",
       handler: "newsletter.subscribe",
     },
+    {
+      method: "POST",
+      path: "/newsletter/unsubscribe",
+      handler: "newsletter.unsubscribe",
+    },
   ],
 };

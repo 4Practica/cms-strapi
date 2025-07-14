@@ -36,5 +36,31 @@ export default factories.createCoreController(
       ctx.response.status = 201;
       return this.transformResponse(newSubscriber);
     },
+
+    async unsubscribe(ctx) {
+      const { email } = ctx.request.body;
+
+      if (!email) {
+        return ctx.badRequest(400, "Missing email in request body");
+      }
+
+      const user = await strapi.db.query("api::newsletter.newsletter").findOne({
+        where: { email },
+      });
+
+      if (user.email.length > 0) {
+        console.log(user);
+        user.isActive = false;
+
+        await strapi.db.query("api::newsletter.newsletter").update({
+          where: { email: user.email },
+          data: { isActive: false },
+        });
+
+        return ctx.send({ status: "User successfully unsubscribed" });
+      }
+
+      return ctx.send({ status: "User not found" });
+    },
   })
 );
