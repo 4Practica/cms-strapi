@@ -9,6 +9,9 @@ export default {
       method: "POST",
       path: "/newsletter/unsubscribe",
       handler: "newsletter.unsubscribe",
+      config: {
+        auth: false,
+      },
     },
   ],
 };
