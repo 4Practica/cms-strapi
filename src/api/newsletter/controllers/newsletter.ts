@@ -27,7 +27,7 @@ export default factories.createCoreController(
       const newSubscriber = await strapi.db
         .query("api::newsletter.newsletter")
         .create({
-          data: { email, publishedAt: new Date() },
+          data: { email, publishedAt: new Date(), isActive: true },
           select: ["id", "email"],
         });
 
