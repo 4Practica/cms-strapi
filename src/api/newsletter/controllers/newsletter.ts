@@ -31,7 +31,10 @@ export default factories.createCoreController(
           select: ["id", "email"],
         });
 
-      await sendWelcomeEmail(email);
+      const emailSent = await sendWelcomeEmail(email);
+
+      if (emailSent.status !== 200)
+        return ctx.badRequest("Error sending welcome email");
 
       ctx.response.status = 201;
       return this.transformResponse(newSubscriber);

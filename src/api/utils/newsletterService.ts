@@ -9,7 +9,11 @@ const headers = {
 
 const sendWelcomeEmail = async (email: string) => {
   try {
-    await axios.post(`${NEWSLETTER_URL}/register`, { email }, { headers });
+    return await axios.post(
+      `${NEWSLETTER_URL}/register`,
+      { email },
+      { headers }
+    );
   } catch (error) {
     console.error("Error sending welcome email:", error);
   }
@@ -17,7 +21,7 @@ const sendWelcomeEmail = async (email: string) => {
 
 const sendNewPostEmail = async (subscribers: string[]) => {
   try {
-    await axios.post(
+    return await axios.post(
       `${NEWSLETTER_URL}/new-post`,
       { subscribers },
       { headers }
