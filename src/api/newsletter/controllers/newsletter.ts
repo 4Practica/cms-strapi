@@ -52,7 +52,6 @@ export default factories.createCoreController(
       });
 
       if (user.email.length > 0) {
-        console.log(user);
         user.isActive = false;
 
         await strapi.db.query("api::newsletter.newsletter").update({
