@@ -4,6 +4,7 @@ export default {
       method: "POST",
       path: "/newsletter",
       handler: "newsletter.subscribe",
+      config: { auth: false },
     },
     {
       method: "POST",
