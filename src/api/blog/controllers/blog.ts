@@ -28,9 +28,7 @@ export default factories.createCoreController(
       entity.imageUrl = entity.image?.url;
       delete entity.image;
 
-      const sanitizedEntity = await this.sanitizeOutput(entity, ctx);
-
-      return this.transformResponse(sanitizedEntity);
+      return this.transformResponse(entity);
     },
     async customSearch(ctx) {
       const { search } = ctx.params;
@@ -57,32 +55,44 @@ export default factories.createCoreController(
         delete blog.image;
       }
 
-      const sanitizedEntity = await this.sanitizeOutput(entity, ctx);
-
-      return this.transformResponse(sanitizedEntity);
+      return this.transformResponse(entity);
     },
     async find(ctx) {
-      const entity = await strapi.db.query("api::blog.blog").findMany({
-        // Line to populate the relationships
-        populate: {
-          image: true,
-          tags: true,
-          author: { populate: { image: true } },
-          meta_datum: true,
-        },
-        where: {
-          publishedAt: {
-            $notNull: true,
+      const { pagination } = ctx.query as any;
+      const page = pagination?.page ? Number(pagination.page) : 1;
+      const pageSize = pagination?.pageSize ? Number(pagination.pageSize) : 9;
+      const start = (page - 1) * pageSize;
+
+      const [entities, total] = await Promise.all([
+        strapi.db.query("api::blog.blog").findMany({
+          populate: {
+            image: true,
+            tags: true,
+            author: { populate: { image: true } },
+            meta_datum: true,
           },
-        },
-      });
-      for (const blog of entity) {
+          where: { publishedAt: { $notNull: true } },
+          offset: start,
+          limit: pageSize,
+        }),
+        strapi.db.query("api::blog.blog").count({
+          where: { publishedAt: { $notNull: true } },
+        }),
+      ]);
+
+      for (const blog of entities) {
         blog.imageUrl = blog.image?.url;
         delete blog.image;
       }
-      const sanitizedEntity = await this.sanitizeOutput(entity, ctx);
 
-      return this.transformResponse(sanitizedEntity);
+      return this.transformResponse(entities, {
+        pagination: {
+          page,
+          pageSize,
+          pageCount: Math.ceil(total / pageSize),
+          total,
+        },
+      });
     },
-  })
+  }),
 );

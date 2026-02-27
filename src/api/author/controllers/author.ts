@@ -19,9 +19,7 @@ export default factories.createCoreController(
         delete author.image
       }
 
-      const sanitizedEntity = await this.sanitizeOutput(entity, ctx);
-
-      return this.transformResponse(sanitizedEntity);
+      return this.transformResponse(entity);
     },
     
   })
